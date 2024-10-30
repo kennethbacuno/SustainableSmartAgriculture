@@ -1,13 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Sustainable Smart Agriculture</title>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <script src="script.js"></script>
-    </body>
-    
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustainable Smart Agriculture</title>
+    <link rel="icon" type="image/x-icon" href="logo_wbg.jpeg">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&family=Lily+Script+One&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation Bar for broader devices like tablets and pcs -->
+    <div class="navbar">
+        <span class="menu-icon" onclick="openNav()">
+            <img src="menu.png" alt="Menu Icon" />
+        </span>
+        <a href="#" class="logo">
+            <img src="logo.png" alt="Logo" />
+        </a>
+        <div class="nav-links">
+            <a onclick="showSection('home')">Home</a>
+            <a onclick="showSection('npk-updates')">NPK Updates</a>
+            <a onclick="showSection('sensor-updates')">Sensor Updates</a>
+            <a onclick="showSection('history')">History</a>
+            <a onclick="showSection('about-app')">About App</a>
+        </div>
+    </div>
+
+    <!-- Side Navigation Dashboard for more compact devices like mobile phones -->
+    <div id="mySideNav" class="sidenav">
+        <span class="closebtn" onclick="closeNav()">
+            <img src="close.png" alt="Close Icon" />
+        </span>
+        <div class="card">
+            <img src="logo.png" alt="Logo Placeholder" class="logo-placeholder">
+        </div>
+        <a onclick="showSection('home')">Home</a>
+        <a onclick="showSection('npk-updates')">NPK Updates</a>
+        <a onclick="showSection('sensor-updates')">Sensor Updates</a>
+        <a onclick="showSection('history')">History</a>
+        <a onclick="showSection('about-app')">About App</a>
+    </div>
+
+    <!-- Sections -->
+    <div id="home" class="section">
+        <img src="logo.png" alt="Logo" />
+        <h1>Sustainable Smart Agriculture</h1>
+        <p>Sprout a smile everyday.</p>
+    </div>
+    <div id="npk-updates" class="section" style="display: none;">
+        <h1>NPK Updates</h1>
+        <p>Here are the latest NPK updates.</p>
+    </div>
+    <div id="sensor-updates" class="section" style="display: none;">
+        <h1>Sensor Updates</h1>
+        <p>Here are the latest sensor updates.</p>
+    </div>
+    <div id="history" class="section" style="display: none;">
+        <h1>History</h1>
+        <p>This is the history section.</p>
+    </div>
+    <div id="about-app" class="section" style="display: none;">
+        <h1>About the App</h1>
+        <p>Information about this application.</p>
+    </div>
+    <script src="script.js"></script>
+</body>
+
 </html>
