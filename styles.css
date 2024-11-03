@@ -57,12 +57,15 @@ body {
 }
 
 .sidenav a {
-    padding: 8px 8px 8px 32px;
+    padding: 8px;
     text-decoration: none;
     font-size: 20px;
     color: #C2D6C5;
     display: block;
     transition: 0.3s;
+    text-align: center;
+    font-family: 'Fuzzy Bubbles', sans-serif;
+    font-weight: 500;
 }
 
 .sidenav a:hover {
@@ -124,6 +127,14 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.section h1{
+    font-size: 60px;
+    font-family: 'Fuzzy Bubbles', sans-serif;
+    color: #4EA93C;
+    margin: 0;
+    text-align: center;
+}
+
 /* for home */
 
 #home {
@@ -152,10 +163,46 @@ body {
     margin: 0;
 }
 
+#home .dashboard {
+    margin: 0;
+    margin-top: 50px;
+    padding: 10px 30px 10px 30px;
+    background-color: #C2D6C5;
+    border-radius: 30px;
+}
+
+#home .dashboard-title {
+    margin: 20px 0px 20px 0px;
+    font-size: 60px;
+    font-family: 'Julius Sans One', sans-serif;
+    color: #4EA93C;
+}
+
+.update-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+#home .update-content img {
+    width: 200px;
+    height: auto;
+}
+
+#home .update-content p {
+    font-size: 30px;
+    font-family: 'Fuzzy Bubbles', sans-serif;
+    color: #16BBB5;
+    margin: 0;
+}
+
+
 @media screen and (max-width: 600px) {
-    #home {
-        height: 78vh;
-        width: auto;
+
+    .section h1 {
+        font-size: 30px;
+        margin: 5px;
     }
 
     #home h1 {
@@ -172,4 +219,198 @@ body {
         height: 200px;
         width: auto;
     }
+
+    #home .dashboard-title {
+        font-size: 20px;
+    }
+
+    #home .dashboard-title {
+        font-size: 20px;
+    }
+
+    .update-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    #home .update-content img {
+        width: 50px;
+        height: auto;
+    }
+
+    #home .update-content p {
+        font-size: 16px;
+    }
+}
+
+/* for NPK sensor */
+#npk-updates .design {
+    font-family: 'Julius Sans One', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    background-color: #16BBB5;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 90%;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#npk-updates h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+/* for controllers */
+.control-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background-color: #C2D6C5;
+    border-radius: 30px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.control-img {
+    width: 100px;
+    height: auto;
+}
+
+.control-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.control-info p {
+    font-size: 20px;
+    color: #16BBB5;
+    font-family: 'Julius Sans One', sans-serif;
+    font-weight: 600;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #12807c;
+    transition: 0.4s;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #16BBB5;
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* for sensor updates */
+#sensor-updates .design {
+    font-family: 'Julius Sans One', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    background-color: #16BBB5;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 90%;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#sensor-updates h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+#sensor-updates .legend {
+    border: 5px solid #16BBB5;
+    padding: 10px;
+    max-width: 300px;
+    background-color: #C2D6C5;
+    border-radius: 20px;
+    font-family: 'Julius Sans One', sans-serif;
+}
+
+#sensor-updates .legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#sensor-updates .legend-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.legend-item span strong {
+    color: #d9534f;
+    font-style: italic;
+}
+
+#sensor-updates .water-level-update {
+    border: 5px solid #16BBB5;
+    padding: 10px;
+    max-width: 300px;
+    background-color: #C2D6C5;
+    text-align: center;
+    border-radius: 20px;
+    font-family: 'Julius Sans One', sans-serif;
+}
+
+#sensor-updates .water-level-update img{
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+#sensor-updates .water-level-update h2 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#sensor-updates .water-level-update h1 strong {
+    color: #d9534f;
+    font-style: italic;
 }

@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Farming Dashboard</title>
+    <style>
+        body {
+            font-family: system-ui;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #f2f2f2;
+        }
+
+        #home {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: none;
+            align-items: center;
+        }
+
+        .logo-container {
+            background-image: url('https://i.pinimg.com/736x/2e/8c/df/2e8cdfa17cf51a20233151efebdf36d0.jpg');
+            /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            width: 500px;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #083316;
+            padding-top: 20px;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .sidenav a,
+        .sidenav button {
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #F5F5F5;
+            display: block;
+            transition: 0.3s;
+            background: none;
+            border: none;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .sidenav a:hover,
+        .sidenav button:hover {
+            color: #F2E318;
+        }
+
+        .main {
+            margin-left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .section {
+            display: none;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .openbtn {
+            font-size: 30px;
+            cursor: pointer;
+            background-color: #104F17;
+            border-radius: 15px;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            z-index: 1;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+        }
+
+        .openbtn:hover {
+            background-color: #A9BF52;
+            color: #000;
+        }
+
+        .closebtn {
+            font-size: 30px;
+            cursor: pointer;
+            background-color: transparent;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .closebtn:hover {
+            background-color: transparent;
+            color: #F2E318;
+        }
+
+        .progress-value {
+            font-size: 24px;
+            font-weight: bold;
+            position: absolute;
+            /* Make element absolute for positioning */
+            bottom: 10px;
+            /* Set bottom position from the bottom edge */
+            left: 10px;
+            /* Set left position from the left edge (optional) */
+        }
+
+        .filler {
+            display: flex;
+            height: 50px;
+            font-size: 16px;
+            font-weight: bolder;
+            color: #1e6907;
+            justify-content: flex-end;
+            align-items: center;
+            transition: margin-left 0.5s;
+            /* Add transition for margin-left */
+            padding: 20px;
+            /* top, right, bottom, left */
+        }
+
+        /* Section Styling */
+        .section {
+            margin: 2rem 0;
+            /* Add some margin for spacing */
+            padding: 1.5rem;
+            border-radius: 5px;
+            /* Subtle rounded corners */
+            background-color: #f2f2f2;
+            /* Light gray background */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow for depth */
+        }
+
+        .design {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 700;
+            color: #444;
+            text-align: center;
+            background-color: #E6EB73;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 90%;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Heading Styling */
+        h2 {
+            font-size: 1.2rem;
+            /* Adjust heading size as needed */
+            font-weight: 500;
+            /* Medium weight for readability */
+            margin-bottom: 1rem;
+            /* Add space after heading */
+        }
+
+        /* Container for Each Paragraph and Button Group */
+        .control-group {
+            display: flex;
+            /* Use flexbox for horizontal alignment */
+            justify-content: space-between;
+            /* Align content on opposite sides */
+            align-items: center;
+            /* Vertically align content in the middle */
+            margin-bottom: 0.5rem;
+            /* Add some space between control groups */
+        }
+
+        /* Paragraph Styling */
+        p {
+            margin-bottom: 0;
+            /* Remove bottom margin for alignment */
+            width: calc(50% - 1.5rem);
+            /* Allocate half width for content */
+        }
+
+        /* Button Styling */
+        .button {
+            background-color: #59A741;
+            width: 70px;
+            height: 40px;
+            border-radius: 10px;
+            /* Your desired button color */
+            color: white;
+            /* White text for contrast */
+            padding: 0.8rem 1.2rem;
+            /* Adjust padding for desired button size */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            /* Indicate clickable behavior */
+            transition: background-color 0.2s ease-in-out;
+            /* Smooth hover effect */
+        }
+
+        .button:hover {
+            background-color: #428531;
+            /* Darken button on hover */
+        }
+
+        .button2:hover {
+            background-color: #ff3333;
+            /* Darken button on hover */
+        }
+
+        /* Second Button Styling (Optional) */
+        .button2 {
+            background-color: #b30000;
+            margin-left: 0.5rem;
+            /* Add some spacing between buttons */
+        }
+
+        /* General styling for the legend */
+        .legend {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            max-width: 400px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .legend p {
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+
+        .range {
+            display: inline-block;
+            width: 100px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .condition {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .wet {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .perfect {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .dry {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .legend strong {
+            text-transform: uppercase;
+        }
+
+
+        /* Media Query for Smaller Devices (Optional) */
+        @media screen and (max-width: 768px) {
+
+            /* Additional adjustments for smaller screens (optional) */
+            .section {
+                padding: 0.5rem;
+                /* Further reduce padding for very small screens */
+            }
+
+            .control-group p {
+                width: calc(50% - 0.5rem);
+                /* Reduce width further if needed */
+                font-size: 1rem;
+                /* Reduce font size further if needed */
+            }
+
+            #home {
+                box-shadow: none;
+                margin-top: 200px;
+                margin-bottom: 200px;
+            }
+
+            .logo-container {
+                width: 300px;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="openbtn" onclick="toggleNav()">☰</button>
+
+    <div id="mySidenav" class="sidenav">
+        <button class="closebtn" onclick="toggleNav()">×</button>
+        <a class="nav-link" onclick="showSection('npk')">NPK Updates</a>
+        <a class="nav-link" onclick="showSection('soil-moisture')">Soil Moisture Update</a>
+        <a class="nav-link" onclick="showSection('controllers')">Controllers</a>
+        <form action="http://192.168.254.123/harvest_data.php/" method="post"
+            style="display: inline-block; padding: 10px 10px; text-align: center; background: none; border: none; margin: 10px 0; border-radius: 4px; cursor: pointer; transition: 0.3s;">
+            <input type="submit" value="View Harvest Data"
+                style="background-color: #E6EB73; color: #000; padding: 16px 40px; border: none; border-radius: 4px; font-family: sans-serif; font-size: 12px;">
+        </form>
+        <a class="progress-value" id="progressValue">Water Container Status: 0%</a>
+    </div>
+
+    <div class="main">
+        <section id="home" class="section active">
+            <div class="logo-container"></div>
+        </section>
+        <section id="npk" class="section">
+            <div class="filler">
+                <h2>NPK Updates</h2>
+            </div>
+            <h2 class="design" id="currentNitro">Current Nitrogen: %NITROGEN%</h2>
+            <div id="chart-nitrogen" class="container"></div>
+            <h2 class="design" id="currentPhos">Current Phosphorus: %PHOSPHORUS%</h2>
+            <div id="chart-phosphorus" class="container"></div>
+            <h2 class="design" id="currentPota">Current Potassium: %POTASSIUM%</h2>
+            <div id="chart-potassium" class="container"></div>
+        </section>
+
+        <section id="soil-moisture" class="section">
+            <div class="filler">
+                <h2>Soil Moisture Updates</h2>
+            </div>
+            <div class="legend">
+                <p><span class="range">0 - 500:</span> <span class="condition wet">Soil Condition is
+                        <strong>wet</strong></span></p>
+                <p><span class="range">501 - 749:</span> <span class="condition perfect">Soil Condition is <strong>in
+                            perfect Condition</strong></span></p>
+                <p><span class="range">750 or greater:</span> <span class="condition dry">Soil Condition is
+                        <strong>dry</strong></span></p>
+            </div>
+
+            <h2 class="design" id="currentMoisture">Current Moisture: %MOISTURE%</h2>
+            <div id="chart-moisture" class="container"></div>
+        </section>
+
+        <section id="controllers" class="section">
+            <div class="filler">
+                <h2>Controllers</h2>
+            </div>
+            <div class="control-group">
+                <p id="waterStatus">Water Pump <strong>%STATE1%</strong></p>
+                <p>
+                    <a><button class="button" onclick="turnOnWater()">ON</button></a>
+                    <a><button class="button button2" onclick="turnOffWater()">OFF</button></a>
+                </p>
+            </div>
+            <div class="control-group">
+                <p id="ferStatus">Fertilizer Pump <strong>%STATE2%</strong></p>
+                <p>
+                    <a><button class="button" onclick="turnOnFer()">ON</button></a>
+                    <a><button class="button button2" onclick="turnOffFer()">OFF</button></a>
+                </p>
+            </div>
+            <div class="control-group">
+                <p id="stepStatus">Roof Control <strong>%STATE3%</strong></p>
+                <p>
+                    <a><button class="button" onclick="openStep()">ON</button></a>
+                    <a><button class="button button2" onclick="closeStep()">OFF</button></a>
+                </p>
+            </div>
+        </section>
+    </div>
+    <script>
+        function sendRequest(url, elementId, message) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById(elementId).innerHTML = message;
+                    console.log(message);
+                }
+            };
+            xhr.send();
+        }
+
+        function turnOnWater() {
+            sendRequest("/on/water", "waterStatus", "Water Pump <strong>ON</strong>");
+        }
+
+        function turnOffWater() {
+            sendRequest("/off/water", "waterStatus", "Water Pump <strong>OFF</strong>");
+        }
+
+        function turnOnFer() {
+            sendRequest("/on/fer", "ferStatus", "Fertilizer Pump <strong>ON</strong>");
+        }
+
+        function turnOffFer() {
+            sendRequest("/off/fer", "ferStatus", "Fertilizer Pump <strong>OFF</strong>");
+        }
+
+        function openStep() {
+            sendRequest("/on/step", "stepStatus", "Roof <strong>OPEN</strong>");
+        }
+
+        function closeStep() {
+            sendRequest("/off/step", "stepStatus", "Roof <strong>CLOSED</strong>");
+        }
+    </script>
+    <script>
+        function toggleNav() {
+            var sidenav = document.getElementById("mySidenav");
+            var mainContent = document.querySelector(".main");
+            if (sidenav.style.width === "200px") {
+                sidenav.style.width = "0";
+                mainContent.style.marginLeft = "0";
+            } else {
+                sidenav.style.width = "200px";
+                mainContent.style.marginLeft = "200px";
+            }
+        }
+
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('.section');
+            sections.forEach(function (section) {
+                if (section.id === sectionId) {
+                    section.classList.add('active');
+                    disableScroll();
+                } else {
+                    section.classList.remove('active');
+                    enableScroll();
+                }
+            });
+
+            var homeSection = document.getElementById('home');
+            if (sectionId !== 'home') {
+                homeSection.style.display = 'none'; // Hide the home section
+            } else {
+                homeSection.style.display = 'block'; // Show the home section
+            }
+        }
+
+        function disableScroll() {
+            document.body.style.overflow = 'hidden';
+        }
+
+        function enableScroll() {
+            document.body.style.overflow = '';
+        }
+
+        function setProgress(value) {
+            const progressValue = document.getElementById('progressValue');
+            progressValue.innerHTML = `Water Container Status: ${value}%`;
+        }
+
+        setInterval(function () {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                    const waterLevel = parseFloat(this.responseText);
+                    const percentage = ((waterLevel / 1024) * 100).toFixed(2);
+                    setProgress(percentage);
+                }
+            };
+            xhttp.open("GET", "/water", true);
+            xhttp.send();
+        }, 1000);
+    </script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script>
+        var chartT = new Highcharts.Chart({
+            chart: { renderTo: 'chart-nitrogen' },
+            title: { text: 'NPK: Nitrogen' },
+            series: [{
+                showInLegend: false,
+                data: []
+            }],
+            plotOptions: {
+                line: {
+                    animation: false,
+                    dataLabels: { enabled: true }
+                },
+                series: { color: '#059e8a' }
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    second: '%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%e. %b',
+                    week: '%e. %b',
+                    month: '%b \'%y',
+                    year: '%Y'
+                }
+            },
+            yAxis: {
+                title: { text: 'Nitrogen (mg/kg)' }
+            },
+            credits: { enabled: false }
+        });
+        setInterval(function () {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var x = (new Date()).getTime(),
+                        y = parseFloat(this.responseText);
+                    if (chartT.series[0].data.length > 40) {
+                        chartT.series[0].addPoint([x, y], true, true, true);
+                    } else {
+                        chartT.series[0].addPoint([x, y], true, false, true);
+                    }
+                    const paragraphElement = document.getElementById("currentNitro");
+                    if (paragraphElement) {
+                        paragraphElement.textContent = "Current Nitrogen (mg/kg): " + this.response + "mg/kg";
+                    }
+                }
+            };
+            xhttp.open("GET", "/temperature", true);
+            xhttp.send();
+        }, 1000);
+
+        var chartH = new Highcharts.Chart({
+            chart: { renderTo: 'chart-phosphorus' },
+            title: { text: 'NPK: Phosphorus' },
+            series: [{
+                showInLegend: false,
+                data: []
+            }],
+            plotOptions: {
+                line: {
+                    animation: false,
+                    dataLabels: { enabled: true }
+                }
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    second: '%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%e. %b',
+                    week: '%e. %b',
+                    month: '%b \'%y',
+                    year: '%Y'
+                }
+            },
+            yAxis: {
+                title: { text: 'Phosphorus (mg/kg)' }
+            },
+            credits: { enabled: false }
+        });
+        setInterval(function () {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var x = (new Date()).getTime(),
+                        y = parseFloat(this.responseText);
+                    if (chartH.series[0].data.length > 40) {
+                        chartH.series[0].addPoint([x, y], true, true, true);
+                    } else {
+                        chartH.series[0].addPoint([x, y], true, false, true);
+                    }
+                    const paragraphElement = document.getElementById("currentPhos");
+                    if (paragraphElement) {
+                        paragraphElement.textContent = "Current Phosphorus (mg/kg): " + this.response + "mg/kg";
+                    }
+                }
+            };
+            xhttp.open("GET", "/humidity", true);
+            xhttp.send();
+        }, 1000);
+
+        var chartP = new Highcharts.Chart({
+            chart: { renderTo: 'chart-potassium' },
+            title: { text: 'NPK: Potassium' },
+            series: [{
+                showInLegend: false,
+                data: []
+            }],
+            plotOptions: {
+                line: {
+                    animation: false,
+                    dataLabels: { enabled: true }
+                },
+                series: { color: '#18009c' }
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    second: '%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%e. %b',
+                    week: '%e. %b',
+                    month: '%b \'%y',
+                    year: '%Y'
+                }
+            },
+            yAxis: {
+                title: { text: 'Potassium (mg/kg)' }
+            },
+            credits: { enabled: false }
+        });
+        setInterval(function () {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var x = (new Date()).getTime(),
+                        y = parseFloat(this.responseText);
+                    if (chartP.series[0].data.length > 40) {
+                        chartP.series[0].addPoint([x, y], true, true, true);
+                    } else {
+                        chartP.series[0].addPoint([x, y], true, false, true);
+                    }
+                    const paragraphElement = document.getElementById("currentPota");
+                    if (paragraphElement) {
+                        paragraphElement.textContent = "Current Potassium (mg/kg): " + this.response + "mg/kg";
+                    }
+                }
+            };
+            xhttp.open("GET", "/pressure", true);
+            xhttp.send();
+        }, 1000);
+
+        var chartMoisture = new Highcharts.Chart({
+            chart: { renderTo: 'chart-moisture' },
+            title: { text: 'Soil Moisture' },
+            series: [{
+                showInLegend: false,
+                data: []
+            }],
+            plotOptions: {
+                line: {
+                    animation: false,
+                    dataLabels: { enabled: true }
+                },
+                series: { color: '#00aaff' }
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    second: '%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%e. %b',
+                    week: '%e. %b',
+                    month: '%b \'%y',
+                    year: '%Y'
+                }
+            },
+            yAxis: {
+                title: { text: 'Soil Moisture' }
+            },
+            credits: { enabled: false }
+        });
+
+        setInterval(function () {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var x = (new Date()).getTime(),
+                        y = parseFloat(this.responseText);
+                    console.log(y);
+                    if (chartMoisture.series[0].data.length > 40) {
+                        chartMoisture.series[0].addPoint([x, y], true, true, true);
+                    } else {
+                        chartMoisture.series[0].addPoint([x, y], true, false, true);
+                    }
+                    const paragraphElement = document.getElementById("currentMoisture");
+                    if (paragraphElement) {
+                        paragraphElement.textContent = "Current Soil Moisture: " + y;
+                    }
+                }
+            };
+            xhttp.open("GET", "/moisture", true);
+            xhttp.send();
+        }, 1000);
+    </script>
+
+</body>
+
+</html>
